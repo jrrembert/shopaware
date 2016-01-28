@@ -1,0 +1,7 @@
+# Project Config
+
+local_settings.py
+
+# Python System Files
+
+*.pyc
