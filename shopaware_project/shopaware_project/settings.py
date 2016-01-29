@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -38,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_extensions'
+    'django_extensions',
+    'access'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -136,4 +136,4 @@ except NameError:
     try:
         from local_settings import *
     except:
-        pass
+        print("No local_settings.py file found - using settings from settings.py") 
