@@ -22,8 +22,8 @@ class Command(BaseCommand):
         parser.add_argument('--password', dest='password', help='')
 
     def handle(self, *args, **kwargs):
-        email = kwargs.get('email') or raw_input("Email: ")
-        username = kwargs.get('username') or raw_input("User Name: ")
+        email = kwargs.get('email') or input("Email: ")
+        username = kwargs.get('username') or input("User Name: ")
         password = kwargs.get('password') or getpass.getpass("Password: ")
 
         with transaction.atomic():
