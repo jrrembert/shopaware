@@ -7,9 +7,10 @@ class BaseTestCase(TestCase):
 
     USERNAME = 'test'
     PASSWORD = 'testtest'
-    EMAIL = 'rynliquid@gmail.com'
+    EMAIL = 'test@test.com'
 
     def setUp(self):
+        super(BaseTestCase, self).setUp()
         self.user = User.objects.create_user(
                         self.USERNAME,
                         self.EMAIL,
@@ -19,7 +20,7 @@ class BaseTestCase(TestCase):
         self.user.delete()
 
 
-class ShopawareTestClient(Client)
+class ShopawareTestClient(Client):
 
     def __init__(self, username=None, password=''):
         self.username = username

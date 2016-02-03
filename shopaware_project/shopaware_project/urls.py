@@ -18,7 +18,10 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 from rest_framework import routers, serializers, viewsets
+from core.views import PlacesViewSet
 
+
+# Refactor following classes into user/access app
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -33,6 +36,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'places', PlacesViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

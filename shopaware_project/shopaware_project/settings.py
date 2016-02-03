@@ -22,9 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#k(c#s#c@jg&tb2@p+!lwo^qm^w7txupy!dg7c7mv8^u-n$a_-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# Required when DEBUG is set to False.
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -36,9 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Extensions
     'rest_framework',
     'django_extensions',
-    'access'
+
+    # Shopaware
+    'access',
+    'core'
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,10 +85,15 @@ WSGI_APPLICATION = 'shopaware_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': ''
     }
 }
+
 
 
 # Password validation
@@ -134,6 +146,6 @@ try:
     LOCAL_SETTINGS
 except NameError:
     try:
-        from local_settings import *
+        from shopaware_project.local_settings import *
     except:
-        print("No local_settings.py file found - using settings from settings.py") 
+        print("No local_settings.py file found - using settings from settings.py")
