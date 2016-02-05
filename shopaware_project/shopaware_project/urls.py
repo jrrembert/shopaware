@@ -18,28 +18,29 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 from rest_framework import routers, serializers, viewsets
-from core.views import PlacesViewSet
+from core.views import PlacesView, PlacesDetailView
+from access.views import UserListView, UserDetailView
 
+from rest_framework.urlpatterns import format_suffix_patterns
 
-# Refactor following classes into user/access app
+#
+# router = routers.DefaultRouter()
+# router.register(r'users', UserViewSet)
+#router.register(r'places', views.PlacesViewSet)
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
+# urlpatterns = [
+#     url(r'^', include(router.urls)),
+#     url(r'^admin/', admin.site.urls),
+#     url(r'^access/', include('rest_framework.urls'), name='access')
+# ]
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'places', PlacesViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^admin/', admin.site.urls),
+    url(r'^users/$', UserListView.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/$', UserDetailView.as_view()),
+    url(r'^places/$', PlacesView.as_view()),
+    url(r'^places/(?P<pk>[0-9]+)/$', PlacesDetailView.as_view()),
     url(r'^access/', include('rest_framework.urls'), name='access')
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

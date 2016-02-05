@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # Shopaware
     'access',
+    'api',
     'core'
 
 ]
