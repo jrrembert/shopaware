@@ -10,13 +10,15 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
+from core.permissions import IsOwnerOrReadOnly
+
 
 class PlacesViewSet(viewsets.ModelViewSet):
     queryset = Places.objects.all()
     serializer_class = PlacesSerializer
 
 
-class PlacesView(generics.ListCreateAPIView):
+class PlacesListView(generics.ListCreateAPIView):
     """
     Get a list of places.
 
@@ -30,13 +32,14 @@ class PlacesView(generics.ListCreateAPIView):
         serializer.save(created_by=self.request.user)
 
 
-
 class PlacesDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     Provides GET (single instance), PUT, and DELETE methods for Places.
     """
     queryset = Places.objects.all()
     serializer_class = PlacesSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly,)
 
 
 class JSONResponse(HttpResponse):

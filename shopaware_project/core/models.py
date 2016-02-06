@@ -26,4 +26,4 @@ class Places(CoreAbstractBaseModel):
     # spatial = models.JSONField()
 
     def __str__(self):
-        return "%s (%s)".format(self.name, self.website)
+        return "%s (created_by: %s)" % (self.name, self.created_by)

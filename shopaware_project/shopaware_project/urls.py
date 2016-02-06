@@ -18,7 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 
 from rest_framework import routers, serializers, viewsets
-from core.views import PlacesView, PlacesDetailView
+from core.views import PlacesListView, PlacesDetailView
 from access.views import UserListView, UserDetailView
 
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -38,8 +38,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     url(r'^users/$', UserListView.as_view()),
     url(r'^users/(?P<pk>[0-9]+)/$', UserDetailView.as_view()),
-    url(r'^places/$', PlacesView.as_view()),
-    url(r'^places/(?P<pk>[0-9]+)/$', PlacesDetailView.as_view()),
+    url(r'^places/$', PlacesListView.as_view(), name='places-list'),
+    url(r'^places/(?P<pk>[0-9]+)/$', PlacesDetailView.as_view(), name='places-detail'),
     url(r'^access/', include('rest_framework.urls'), name='access')
 ]
 
