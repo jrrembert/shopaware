@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.test.client import Client
+from rest_framework.test import APIClient
 from django.contrib.auth.models import User
 
 
@@ -11,25 +11,14 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         super(BaseTestCase, self).setUp()
+        self.client = APIClient()
         self.user = User.objects.create_user(
                         self.USERNAME,
                         self.EMAIL,
                         self.PASSWORD)
+        self.client.login(username=self.USERNAME,
+                          password=self.PASSWORD)
 
     def tearDown(self):
+        self.client.logout()
         self.user.delete()
-
-
-class ShopawareTestClient(Client):
-
-    def __init__(self, username=None, password=''):
-        self.username = username
-        self.password = password
-
-    def login(self, username=None, password=None):
-        if username:
-            self.user = User.objects.get(username=username)
-            self.password = password or self.password
-
-    def logout():
-        pass
